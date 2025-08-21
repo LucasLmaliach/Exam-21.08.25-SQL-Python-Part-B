@@ -1,0 +1,20 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "televisions" (
+	"id"	INTEGER,
+	"catalog_number"	INT NOT NULL UNIQUE,
+	"brand"	TEXT NOT NULL CHECK("brand" IN ('Samsung', 'LG', 'Sony')),
+	"model"	TEXT NOT NULL,
+	"screen_size"	INT CHECK("screen_size" > 0),
+	"resolution"	TEXT NOT NULL CHECK("resolution" IN ('4K', '8K', 'Full HD')),
+	"price"	REAL CHECK("price" >= 0),
+	"stock_quantity"	INT DEFAULT 0 CHECK("stock_quantity" >= 0),
+	"release_year"	INT CHECK("release_year" >= 2000),
+	"smart_tv"	TEXT CHECK("smart_tv" IN ('Yes', 'No')),
+	"os"	TEXT,
+	"panel_type"	TEXT CHECK("panel_type" IN ('OLED', 'QLED', 'LED')),
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+INSERT INTO "televisions" VALUES (1,1,'Samsung','ModelA',55,'4K',1200.0,10,2020,'Yes','Windows','QLED');
+INSERT INTO "televisions" VALUES (2,2,'LG','ModelB',65,'4K',1500.0,5,2020,'Yes','webOS','OLED');
+INSERT INTO "televisions" VALUES (3,3,'Sony','ModelC',55,'4K',1300.0,7,2012,'No',NULL,'LED');
+COMMIT;
