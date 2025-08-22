@@ -1,0 +1,95 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "movies" (
+	"id"	INTEGER,
+	"movie_name"	TEXT NOT NULL UNIQUE,
+	"genre"	TEXT NOT NULL,
+	"country"	TEXT NOT NULL,
+	"language"	TEXT NOT NULL,
+	"year"	INTEGER NOT NULL CHECK("year" >= 2009),
+	"revenue"	REAL NOT NULL CHECK("revenue" >= 0),
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+INSERT INTO "movies" VALUES (1,'Oppenheimer','Biography','USA','English',2023,960.0);
+INSERT INTO "movies" VALUES (2,'Barbie','Comedy','USA','English',2023,1440.0);
+INSERT INTO "movies" VALUES (3,'Dune Part Two','Sci-Fi','USA','English',2024,700.0);
+INSERT INTO "movies" VALUES (4,'John Wick 4','Action','USA','English',2023,440.0);
+INSERT INTO "movies" VALUES (5,'Everything Everywhere All at Once','Sci-Fi','USA','English',2022,140.0);
+INSERT INTO "movies" VALUES (6,'The Batman','Action','USA','English',2022,772.0);
+INSERT INTO "movies" VALUES (7,'Spider Man No Way Home','Action','USA','English',2021,1920.0);
+INSERT INTO "movies" VALUES (8,'Top Gun Maverick','Action','USA','English',2022,1490.0);
+INSERT INTO "movies" VALUES (9,'The Whale','Drama','USA','English',2022,55.0);
+INSERT INTO "movies" VALUES (10,'Guardians of the Galaxy Vol 3','Action','USA','English',2023,845.0);
+INSERT INTO "movies" VALUES (11,'Parasite','Thriller','South Korea','Korean',2019,266.0);
+INSERT INTO "movies" VALUES (12,'Train to Busan 2','Horror','South Korea','Korean',2020,92.0);
+INSERT INTO "movies" VALUES (13,'Decision to Leave','Mystery','South Korea','Korean',2022,23.0);
+INSERT INTO "movies" VALUES (14,'Joker','Drama','USA','English',2019,1074.0);
+INSERT INTO "movies" VALUES (15,'Tenet','Sci-Fi','USA','English',2020,365.0);
+INSERT INTO "movies" VALUES (16,'The Irishman','Crime','USA','English',2019,8.0);
+INSERT INTO "movies" VALUES (17,'Ford v Ferrari','Drama','USA','English',2019,225.0);
+INSERT INTO "movies" VALUES (18,'1917','War','UK','English',2019,385.0);
+INSERT INTO "movies" VALUES (19,'The Farewell','Drama','USA','English/Chinese',2019,23.0);
+INSERT INTO "movies" VALUES (20,'The Banshees of Inisherin','Comedy','Ireland','English',2022,49.0);
+INSERT INTO "movies" VALUES (21,'Django Unchained','Western','USA','English',2012,426.0);
+INSERT INTO "movies" VALUES (22,'Avengers Endgame','Action','USA','English',2019,2798.0);
+INSERT INTO "movies" VALUES (23,'Black Panther','Action','USA','English',2018,1347.0);
+INSERT INTO "movies" VALUES (24,'Coco','Animation','USA','English/Spanish',2017,807.0);
+INSERT INTO "movies" VALUES (25,'Mad Max Fury Road','Action','Australia','English',2015,380.0);
+INSERT INTO "movies" VALUES (26,'Inception','Sci-Fi','USA','English',2010,837.0);
+INSERT INTO "movies" VALUES (27,'The Revenant','Adventure','USA','English',2015,532.0);
+INSERT INTO "movies" VALUES (28,'La La Land','Musical','USA','English',2016,447.0);
+INSERT INTO "movies" VALUES (29,'The Secret in Their Eyes','Crime','Argentina','Spanish',2009,34.0);
+INSERT INTO "movies" VALUES (30,'No Time to Die','Action','UK','English',2021,774.0);
+COMMIT;
+
+1. 
+SELECT genre, COUNT(*) AS movie_count
+FROM movies
+GROUP BY genre;
+
+2. 
+SELECT year, SUM(revenue) AS total_revenue
+FROM movies
+GROUP BY year;
+
+3. 
+SELECT genre, AVG(revenue) AS avg_revenue
+FROM movies
+GROUP BY genre;
+
+4. 
+SELECT genre, language, AVG(revenue) AS avg_revenue
+FROM movies
+GROUP BY genre, language;
+
+5. 
+SELECT language, COUNT(*) AS movie_count
+FROM movies
+GROUP BY language
+ORDER BY movie_count ASC
+LIMIT 1;
+
+6. 
+SELECT country, COUNT(*) AS movie_count
+FROM movies
+GROUP BY country
+ORDER BY movie_count DESC
+LIMIT 1;
+
+7.
+SELECT genre, COUNT(*) AS movie_count
+FROM movies
+GROUP BY genre
+HAVING COUNT(*) > 2;
+
+8. 
+SELECT year, SUM(revenue) AS total_revenue
+FROM movies
+GROUP BY year
+HAVING SUM(revenue) > 1000;
+
+9. 
+SELECT language, COUNT(*) AS movie_count
+FROM movies
+GROUP BY language
+HAVING COUNT(*) >= 3;
+
